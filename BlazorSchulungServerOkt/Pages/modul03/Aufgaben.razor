@@ -2,7 +2,7 @@
 @using System.Text.Json
 @using System.IO
 @using Microsoft.AspNetCore.Hosting
-@inject WebHostEnvironment environment
+@inject IWebHostEnvironment environment
 <h3>Aufgaben</h3>
 <div class="input-group mb-3">
     <input type="text" class="form-control" placeholder="Aufgabe eingeben" @bind="NeuAufgabe">
@@ -23,12 +23,23 @@
 @code {
     public List<Aufgabe> ListeAufgaben { get; set; } = new List<Aufgabe>();
     public string NeuAufgabe { get; set; }
+
     void AddAufgabe()
     {
         ListeAufgaben.Add(new Aufgabe() { ID = ListeAufgaben.Count() + 1, Text = NeuAufgabe });
         var daten = JsonSerializer.Serialize(ListeAufgaben);
-        var file = Path.Combine(_environment.ContentRootPath,
-"wwwroot/upload", Datei.FileName);
+        var pfad = Path.Combine(environment.ContentRootPath, "data/todo.json");
+        File.WriteAllText(pfad, daten);
     }
+    protected override void OnAfterRender(bool firstRender)
+    {
+        if (firstRender)
+        {
+            var pfad = Path.Combine(environment.ContentRootPath, "data/todo.json");
+            var daten = File.ReadAllText(pfad);
+            ListeAufgaben= JsonSerializer.Deserialize<List<Aufgabe>>(daten);
+            StateHasChanged();
 
+        }
+    }
 }
