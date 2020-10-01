@@ -1,0 +1,9 @@
+﻿@using System.IO 
+<h3>Component</h3>
+
+@code {
+    protected override void OnInitialized()
+    {
+        File.ReadAllLines(@"c:\temp\test.txt");
+    }
+}
