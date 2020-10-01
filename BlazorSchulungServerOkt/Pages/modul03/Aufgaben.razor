@@ -1,12 +1,27 @@
 ﻿@page "/todo"
 <h3>Aufgaben</h3>
 <div class="input-group mb-3">
-    <input type="text" class="form-control" placeholder="Recipient's username" aria-label="Recipient's username" aria-describedby="basic-addon2">
+    <input type="text" class="form-control" placeholder="Aufgabe eingeben" @bind="NeuAufgabe">
     <div class="input-group-append">
-        <span class="input-group-text" id="basic-addon2">@example.com</span>
+        <button class="btn btn-outline-secondary" type="button" @onclick="AddAufgabe" >Neu</button>
     </div>
 </div>
 
+<ul class="list-group">
+    @foreach (var item in ListeAufgaben)
+    {
+        <li class="list-group-item">
+            @item.Text
+        </li>
+    }
+</ul>
+
 @code {
+    public List<Aufgabe> ListeAufgaben { get; set; } = new List<Aufgabe>();
+    public string NeuAufgabe { get; set; }
+    void AddAufgabe()
+    {
+        ListeAufgaben.Add(new Aufgabe() { ID = ListeAufgaben.Count() + 1, Text = NeuAufgabe });
+    }
 
 }
