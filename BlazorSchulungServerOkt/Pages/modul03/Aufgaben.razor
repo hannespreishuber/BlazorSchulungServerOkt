@@ -24,7 +24,10 @@
         }
         else
         {
-            <input type="checkbox" @bind="item.Erledigt" />
+            <input type="checkbox" 
+                  checked="@item.Erledigt"
+                   @onchange="(_) => { item.Erledigt = (bool)_.Value;Aktualisiere(item); }"
+                   />
             <span @onclick="()=>item.IsEdit=true"
                   style='@(item.Erledigt?"text-decoration:line-through":"")'>@item.Text</span>
         }
@@ -37,9 +40,11 @@
 @code {
     public List<Aufgabe> ListeAufgaben { get; set; } = new List<Aufgabe>();
     public string NeuAufgabe { get; set; }
+
     void Aktualisiere(Aufgabe a)
     {
         a.IsEdit = false;
+     
         var daten = JsonSerializer.Serialize(ListeAufgaben);
         var pfad = Path.Combine(environment.ContentRootPath, "data/todo.json");
         File.WriteAllText(pfad, daten);
