@@ -1,0 +1,23 @@
+﻿@page "/calc"
+<h3>Component1</h3>
+
+<div class="alert-danger" style="background-color:red" >text </div>
+<Component  @ref="hannes"></Component>
+@MyProperty
+<input @bind="MyProperty" />
+<button @onclick="add" ></button>
+
+@code {
+    public int MyProperty { get; set; }
+
+    Component hannes;
+    protected override void OnInitialized()
+    {
+
+
+    }
+    void add()
+    {
+
+    }
+} 
