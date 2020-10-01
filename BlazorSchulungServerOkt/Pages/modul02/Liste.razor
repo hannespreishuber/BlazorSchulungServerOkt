@@ -1,0 +1,34 @@
+﻿@page "/liste"
+<style>
+    .hannes 
+    {
+        background-color:silver;
+    }
+</style>
+
+<div class="row">
+    <div class="col">
+        <h3>Liste</h3>
+
+        <ul class="list-group">
+            @for (int i = 0; i < 7; i++)
+            {
+                <li class='list-group-item @(i%2==0?"":"list-group-item-warning") '>
+                    @DateTime.Now.AddDays(i).ToString("dddd")
+                </li>
+            }
+        </ul>
+        <ul class="list-group">
+            @for (int i = 0; i < 7; i++)
+            {
+                <li class='list-group-item @(i%2==0?"":"hannes") '>
+                    @DateTime.Now.AddDays(i).ToString("dddd")
+                </li>
+            }
+        </ul>
+    </div>
+</div>
+
+@code {
+
+}
