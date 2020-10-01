@@ -1,11 +1,18 @@
 ﻿@page "/select"
-<h3>Component2</h3>
-<select @bind="MyProperty">
-    <option value="1">eins</option>
-    <option value="2">zwei</option>
-    <option value="3">drei</option>
-</select>
-@MyProperty
+<div class="row">
+    <h3>Component2</h3>
+    <select @bind="MyProperty">
+        <option value="1">eins</option>
+        <option value="2">zwei</option>
+        <option value="3">drei</option>
+    </select>
+</div>
+<div class="row">
+    @MyProperty
+</div>
+
+
+
 
 @code {
     public int MyProperty { get; set; }
