@@ -1,9 +1,13 @@
 ﻿@page "/todo"
+@using System.Text.Json
+@using System.IO
+@using Microsoft.AspNetCore.Hosting
+@inject WebHostEnvironment environment
 <h3>Aufgaben</h3>
 <div class="input-group mb-3">
     <input type="text" class="form-control" placeholder="Aufgabe eingeben" @bind="NeuAufgabe">
     <div class="input-group-append">
-        <button class="btn btn-outline-secondary" type="button" @onclick="AddAufgabe" >Neu</button>
+        <button class="btn btn-outline-secondary" type="button" @onclick="AddAufgabe">Neu</button>
     </div>
 </div>
 
@@ -22,6 +26,9 @@
     void AddAufgabe()
     {
         ListeAufgaben.Add(new Aufgabe() { ID = ListeAufgaben.Count() + 1, Text = NeuAufgabe });
+        var daten = JsonSerializer.Serialize(ListeAufgaben);
+        var file = Path.Combine(_environment.ContentRootPath,
+"wwwroot/upload", Datei.FileName);
     }
 
 }
