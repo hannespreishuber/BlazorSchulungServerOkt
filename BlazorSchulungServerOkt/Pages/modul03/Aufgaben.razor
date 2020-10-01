@@ -14,15 +14,36 @@
 <ul class="list-group">
     @foreach (var item in ListeAufgaben)
     {
-        <li class="list-group-item">
-            @item.Text
-        </li>
+    <li class="list-group-item">
+        @if (item.IsEdit)
+        {
+            <input class="form-control" 
+                   @bind="item.Text"
+                   @onfocusout="@(()=>Aktualisiere(item))"
+                   />
+        }
+        else
+        {
+            <input type="checkbox" @bind="item.Erledigt" />
+            <span @onclick="()=>item.IsEdit=true"
+                  style='@(item.Erledigt?"text-decoration:line-through":"")'>@item.Text</span>
+        }
+
+
+    </li>
     }
 </ul>
 
 @code {
     public List<Aufgabe> ListeAufgaben { get; set; } = new List<Aufgabe>();
     public string NeuAufgabe { get; set; }
+    void Aktualisiere(Aufgabe a)
+    {
+        a.IsEdit = false;
+        var daten = JsonSerializer.Serialize(ListeAufgaben);
+        var pfad = Path.Combine(environment.ContentRootPath, "data/todo.json");
+        File.WriteAllText(pfad, daten);
+    }
 
     void AddAufgabe()
     {
