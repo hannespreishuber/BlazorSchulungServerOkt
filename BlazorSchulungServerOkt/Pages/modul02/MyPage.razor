@@ -1,0 +1,16 @@
+﻿@page "/mypage"
+@page "/hannes/{para1:int}"
+
+
+
+
+<h3>MyPage</h3>
+
+<a href="mypage?id=1223">link</a>
+<a href="hannes/223">link</a>
+<a href="franz">razor</a>
+@code {
+    [Parameter]
+    public int para1 { get; set; }
+
+}
