@@ -1,7 +1,15 @@
 ﻿@page "/Farbe"
 <h3>Component</h3>
 <input @bind-value="MyProperty" @bind-value:event="oninput" style="background-color:@MyProperty"/>
+
+<input value="@MyProperty" @onchange="_ => change((string)_.Value)" />
 @code {
     public string MyProperty { get; set; }
+    void change(string w)
+    {
+        MyProperty = w;
+
+    }
+
 
 }
