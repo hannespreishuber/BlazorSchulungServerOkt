@@ -1,0 +1,46 @@
+﻿@page "/auto"
+@page "/auto/{id:int}"
+
+
+    <h3>EditAuto</h3>
+    <EditForm Model="MyProperty" OnValidSubmit="speichern">
+        <DataAnnotationsValidator></DataAnnotationsValidator>
+
+        <div class="form-group">
+            <label for="email">Hersteller</label>
+
+            <InputText @bind-Value="MyProperty.Hersteller" class="form-control"></InputText>
+            <ValidationMessage For="@(()=>MyProperty.Hersteller)"></ValidationMessage>
+        </div>
+        <div class="form-group">
+            <label for="email">Hersteller</label>
+
+            <InputNumber @bind-Value="MyProperty.Leistung" class="form-control"></InputNumber>
+            <ValidationMessage For="@(()=>MyProperty.Leistung)"></ValidationMessage>
+        </div>
+        <div class="form-group">
+            <label for="email">Jahr</label>
+
+            <InputDate @bind-Value="MyProperty.Jahr" class="form-control"></InputDate>
+            <ValidationMessage For="@(()=>MyProperty.Jahr)"></ValidationMessage>
+        </div>
+        <button type="submit">speichern</button>
+        <ValidationSummary></ValidationSummary>
+    </EditForm>
+
+    @code {
+        [Parameter]
+        public int id { get; set; }
+        public Car MyProperty { get; set; } = new Car();
+
+        protected override void OnParametersSet()
+        {
+            //fake car aus DB laden
+            var c = new Car() { ID = 1, Jahr = DateTime.Now.AddDays(-1000), Leistung = 450, Hersteller = "GM" };
+            MyProperty = c;
+        }
+        void speichern()
+        {
+
+        }
+}
