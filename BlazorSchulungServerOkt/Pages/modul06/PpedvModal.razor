@@ -1,19 +1,19 @@
 ﻿@if (IsVisible)
 {
-<div class="modal fade show" tabindex="-1">
+<div class="modal fade show" tabindex="-1" style="display: block;">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <h5 class="modal-title" id="exampleModalLabel">@Titel</h5>
+                    <button type="button" class="close"  @onclick="Show">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body">
-                    ...
+                    @ChildContent
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-secondary"  @onclick="Show" >Close</button>
                     <button type="button" class="btn btn-primary">Save changes</button>
                 </div>
             </div>
@@ -23,6 +23,10 @@
 }
 @code {
     public bool IsVisible { get; set; }
+    [Parameter]
+    public string Titel { get; set; }
+    [Parameter]
+    public RenderFragment ChildContent { get; set; }
     public void Show()
     {
         IsVisible = !IsVisible;
