@@ -1,0 +1,29 @@
+﻿@page "/js"
+@inject IJSRuntime JSruntime
+
+<h3>Component</h3>
+<button @onclick="click">button</button>
+@MyProperty
+@code {
+    public DateTime MyProperty { get; set; }
+    void click()
+    {
+        JSruntime.InvokeVoidAsync("alert", "Halloo Welt");
+        JSruntime.InvokeVoidAsync("localStorage.setItem", "hannes", DateTime.Now);
+        JSruntime.InvokeVoidAsync("eval","document.title='Hallo Welt'");
+    }
+    protected async override void OnAfterRender(bool firstRender)
+    {
+        try
+        {
+            var o = await JSruntime.InvokeAsync<DateTime>("localStorage.getItem", "hannes");
+            MyProperty = o;
+        }
+        catch
+        {
+
+        }
+
+
+    }
+}
