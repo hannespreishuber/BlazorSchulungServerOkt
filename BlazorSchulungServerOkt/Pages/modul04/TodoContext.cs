@@ -13,6 +13,6 @@ namespace BlazorSchulungServerOkt.Pages.modul04
         {
 
         }
-        public virtual DbSet<Aufgabe> Aufgabes { get; set; }
+        public  DbSet<Aufgabe> Aufgabes { get; set; }
     }
 }
