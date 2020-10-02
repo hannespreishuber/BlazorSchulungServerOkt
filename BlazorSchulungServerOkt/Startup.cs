@@ -34,6 +34,7 @@ namespace BlazorSchulungServerOkt
             services.AddSingleton<WeatherForecastService>();
             services.AddSingleton<LiveTicker>();
             services.AddDbContext<TodoContext>(o=>o.UseSqlServer(Configuration.GetConnectionString("Todo")));
+            services.AddHttpClient();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

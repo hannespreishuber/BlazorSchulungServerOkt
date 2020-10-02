@@ -1,0 +1,15 @@
+﻿@page "/hc"
+@inject IHttpClientFactory http
+<h3>todohttpclient</h3>
+<button @onchange="laden">laden</button>
+
+@code {
+    public List<ToDo2> TodoListe { get; set; }
+    void laden()
+    {
+        var client = http.CreateClient();
+        client.GetAsync(@"https://jsonplaceholder.typicode.com/todos");
+
+    }
+
+}
