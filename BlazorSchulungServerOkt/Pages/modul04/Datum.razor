@@ -1,0 +1,12 @@
+﻿@page "/datum"
+<h3>Datum</h3>
+<input @bind="MyProperty"
+       @bind:culture="info" />
+
+@*@bind:format="dd.MM.yy"*@
+type="datetime-local"
+@MyProperty
+@code {
+    public DateTime MyProperty { get; set; }
+    System.Globalization.CultureInfo info = new System.Globalization.CultureInfo("de-de");
+}
