@@ -1,6 +1,10 @@
 ﻿@page "/p"
+@inject IJSRuntime JSRuntime            
 <h3>Component</h3>
-
+<button @onclick="klick">click</button>
 @code {
-
+    void klick()
+    {
+        JSRuntime.InvokeVoidAsync("alert", "hallo");
+    }
 }

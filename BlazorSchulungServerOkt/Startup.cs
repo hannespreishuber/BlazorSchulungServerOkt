@@ -10,6 +10,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using BlazorSchulungServerOkt.Data;
+using BlazorSchulungServerOkt.Pages.modul03;
 
 namespace BlazorSchulungServerOkt
 {
@@ -29,6 +30,7 @@ namespace BlazorSchulungServerOkt
             services.AddRazorPages();
             services.AddServerSideBlazor();
             services.AddSingleton<WeatherForecastService>();
+            services.AddSingleton<LiveTicker>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

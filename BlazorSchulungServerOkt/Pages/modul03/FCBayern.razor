@@ -1,0 +1,37 @@
+﻿@page "/fc"
+@inject LiveTicker VM 
+<h3>FCBayern</h3>
+
+<div class="input-group mb-3">
+    <input type="text" class="form-control" placeholder="Aufgabe eingeben" @bind="Text">
+    <div class="input-group-append">
+        <button class="btn btn-outline-secondary" type="button" @onclick="AddTicker">Neu</button>
+    </div>
+</div>
+<table class="table table-striped">
+    <tr>
+        <th>Zeit</th>
+        <th>Meldung</th>
+    </tr>
+    @foreach (var item in VM.TickerListe)
+    {
+        <tr @key="@item.ID">
+            <td>@item.Zeit</td>
+            <td>@item.Text</td>
+        </tr>
+    }
+
+</table>
+@code {
+    public string Text { get; set; }
+    void AddTicker()
+    {
+
+        var r= VM.Add(Text);
+        StateHasChanged();
+    }
+    protected override void OnInitialized()
+    {
+        VM.OnPropertyChanged +=()=> InvokeAsync(StateHasChanged);
+    }
+}
