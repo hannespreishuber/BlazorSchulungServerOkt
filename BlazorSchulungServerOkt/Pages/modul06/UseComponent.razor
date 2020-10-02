@@ -1,7 +1,12 @@
 ﻿@page "/uc"
 <h3>UseComponent</h3>
-<Component42 MyProperty="Hannes"></Component42>
+<Component42 MyProperty="Hannes" @ref="hannes"></Component42>
 <RazorClassLibrary1.Component1></RazorClassLibrary1.Component1>
-@code {
 
+@code { 
+    Component42 hannes;
+    protected override void OnInitialized()
+    {
+        hannes.extMyProperty = "Preishuber";
+   }
 }
