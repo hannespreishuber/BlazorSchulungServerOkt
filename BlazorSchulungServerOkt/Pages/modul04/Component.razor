@@ -1,0 +1,7 @@
+﻿@page "/Farbe"
+<h3>Component</h3>
+<input @bind-value="MyProperty" @bind-value:event="oninput" style="background-color:@MyProperty"/>
+@code {
+    public string MyProperty { get; set; }
+
+}
