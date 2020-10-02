@@ -1,0 +1,6 @@
+﻿DBCOntext Klasse mit Konstrukto Options
+Appsettings.json Connection String
+Start.cs di anmelden und UseSQlServer +Conn Key
+Migrations 
+-add-migration name
+-update-database

@@ -11,6 +11,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using BlazorSchulungServerOkt.Data;
 using BlazorSchulungServerOkt.Pages.modul03;
+using BlazorSchulungServerOkt.Pages.modul04;
+using Microsoft.EntityFrameworkCore;
 
 namespace BlazorSchulungServerOkt
 {
@@ -31,6 +33,7 @@ namespace BlazorSchulungServerOkt
             services.AddServerSideBlazor();
             services.AddSingleton<WeatherForecastService>();
             services.AddSingleton<LiveTicker>();
+            services.AddDbContext<TodoContext>(o=>o.UseSqlServer(Configuration.GetConnectionString("Todo")));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

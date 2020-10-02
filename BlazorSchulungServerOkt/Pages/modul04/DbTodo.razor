@@ -1,0 +1,71 @@
+﻿@page "/dbtodo"
+@using System.Text.Json
+@using System.IO
+@using Microsoft.AspNetCore.Hosting
+@using modul03 
+@using Microsoft.EntityFrameworkCore
+@inject TodoContext db
+<h3>Aufgaben</h3>
+<div class="input-group mb-3">
+    <input type="text" class="form-control" placeholder="Aufgabe eingeben" @bind="NeuAufgabe">
+    <div class="input-group-append">
+        <button class="btn btn-outline-secondary" type="button" @onclick="AddAufgabe">Neu</button>
+    </div>
+</div>
+
+<ul class="list-group">
+    @foreach (var item in ListeAufgaben)
+    {
+        <li class="list-group-item">
+            @if (item.IsEdit)
+            {
+                <input class="form-control"
+                       @bind="item.Text"
+                       @onfocusout="@(()=>Aktualisiere(item))" />
+            }
+            else
+            {
+                <input type="checkbox"
+                       checked="@item.Erledigt"
+                       @onchange="(_) => { item.Erledigt = (bool)_.Value;Aktualisiere(item); }" />
+                <span @onclick="()=>item.IsEdit=true"
+                      style='@(item.Erledigt?"text-decoration:line-through":"")'>@item.Text</span>
+                }
+
+
+        </li>
+    }
+</ul>
+
+@code {
+    public List<Aufgabe> ListeAufgaben { get; set; } = new List<Aufgabe>();
+    public string NeuAufgabe { get; set; }
+
+
+
+    void Aktualisiere(Aufgabe a)
+    {
+        a.IsEdit = false;
+
+        ////update DB
+    }
+
+    void AddAufgabe()
+    {
+        var a = new Aufgabe() { Text = NeuAufgabe };
+        db.Aufgabes.Add(a);
+        db.SaveChanges();
+        ListeAufgaben.Add(a);
+        //'Insert DB
+    }
+    protected override void OnAfterRender(bool firstRender)
+    {
+        if (firstRender)
+        {
+            //'select DB
+            ListeAufgaben = db.Aufgabes.ToList();
+            StateHasChanged();
+
+        }
+    }
+}
