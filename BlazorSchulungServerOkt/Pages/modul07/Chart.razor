@@ -1,0 +1,47 @@
+﻿@using System.Globalization
+<figure>
+    <svg viewBox="0 0 200  200">
+        @(summe=360/Daten.Sum())
+
+        @for (int i = 0; i < Daten.Length; i++)
+        {
+            winkel = Daten[i] * summe;
+            var winkelInRadians = (winkel - 90) * Math.PI / 180.0;
+            var x = i;
+            <path d="M100,100 L100,0 A100,100 1 0 1
+                      @((radius + radius * Math.Cos(winkelInRadians)).ToString("0.0", CultureInfo.InvariantCulture)),
+                      @((radius + radius * Math.Sin(winkelInRadians)).ToString("0.0", CultureInfo.InvariantCulture))  z"
+                  transform="rotate(@((deltawinkel).ToString("0.0", CultureInfo.InvariantCulture)), 100, 100)"
+                  fill="@Farben[i]"
+                  @onclick="@(()=>ClickMe(x))"></path>
+            deltawinkel += winkel;
+        }
+
+    </svg>
+</figure>
+
+@code {
+    public String[] Farben { get; set; } = { "red", "aqua", "fuchsia", "green", "blue", "lime", "yellow", "purple", "silver" };
+    private double[] _daten;
+    [Parameter]
+    public double[] Daten
+    {
+        get { return _daten; }
+
+        set
+        {
+            _daten = value;
+            StateHasChanged();
+        }
+    }
+    double radius = 100;
+    double winkel;
+    double deltawinkel = 0;
+    double summe;
+    void ClickMe(int i)
+    {
+
+
+    }
+
+}

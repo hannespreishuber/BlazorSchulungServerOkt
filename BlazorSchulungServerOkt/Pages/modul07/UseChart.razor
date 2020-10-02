@@ -1,0 +1,14 @@
+﻿@page "/chart"
+<h3>UseChart</h3>
+<div style="width:200px;height:200px">
+    <Chart @ref="chart1"
+           Daten="@(new double[] {50,100,30,90,120 })"></Chart>
+</div>
+<button @onclick="neudaten">neue daten</button>
+@code {
+    public Chart chart1 { get; set; }
+    void neudaten()
+    {
+        chart1.Daten = new double[] { 20,100,50,30,200};
+    }
+}
