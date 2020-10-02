@@ -1,14 +1,34 @@
 ﻿@page "/hc"
+@using System.Text.Json
 @inject IHttpClientFactory http
 <h3>todohttpclient</h3>
-<button @onchange="laden">laden</button>
+<button @onclick="laden">laden</button>
+@if (TodoListe==null)
+{
+    <p>lade daten</p>
+}
+else
+{
+    <ul>
+        @foreach (var item in TodoListe)
+        {
+            <li>@item.title</li>
+        }
+    </ul>
+
+}
 
 @code {
     public List<ToDo2> TodoListe { get; set; }
     void laden()
     {
         var client = http.CreateClient();
-        client.GetAsync(@"https://jsonplaceholder.typicode.com/todos");
+        var response = client.GetAsync(@"https://jsonplaceholder.typicode.com/todos").Result;
+        if (response.IsSuccessStatusCode)
+        {
+            var s=response.Content.ReadAsStringAsync().Result;
+           TodoListe= JsonSerializer.Deserialize<List<ToDo2>>(s);
+        }
 
     }
 
